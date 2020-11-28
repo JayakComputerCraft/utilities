@@ -17,7 +17,7 @@ function File:exists()
 end
 
 function File:get()
-    handle = fs.open(self.path, self.READ)
+    local handle = fs.open(self.path, self.READ)
     content = handle.readAll()
     handle.close()
 
@@ -25,7 +25,11 @@ function File:get()
 end
 
 function File:put(content)
-    fs.open(self.path, self.WRITE).write(content).close()
+    local handle = fs.open(self.path, self.WRITE)
+    handle.write(content)
+    handle.close()
+
+    return self
 end
 
 return File
